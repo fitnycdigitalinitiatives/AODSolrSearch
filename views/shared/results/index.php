@@ -9,24 +9,16 @@
 
 ?>
 
+<?php echo head(array('title' => __('Search Results')));?>
 
-<?php queue_css_file('results'); ?>
-<?php echo head(array('title' => __('Solr Search')));?>
-
-
-<h1><?php echo __('Search the Collection'); ?></h1>
-
-
-<!-- Search form. -->
-<div class="solr">
-  <form id="solr-search-form">
-    <input type="submit" value="Search" />
-    <span class="float-wrap">
-      <input type="text" title="<?php echo __('Search keywords') ?>" name="q" value="<?php
-        echo array_key_exists('q', $_GET) ? $_GET['q'] : '';
-      ?>" />
-    </span>
-  </form>
+<div class="sub-header">
+  <?php $query = array_key_exists('q', $_GET) ? $_GET['q'] : ''; ?>
+  <?php if (strlen($query) > 0): ?>
+    <?php $query = trim($query, '()'); ?>
+    <h1>Showing <?php echo $results->response->numFound; ?> results for <em><?php echo $query; ?></em></h1>
+  <?php else: ?>
+    <h1>Showing <?php echo $results->response->numFound; ?> results</h1>
+  <?php endif; ?>
 </div>
 
 
